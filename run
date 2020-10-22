@@ -1,0 +1,5 @@
+#! /bin/bash
+
+. $HOME/.functions
+python3 -m server --port=8080
+
