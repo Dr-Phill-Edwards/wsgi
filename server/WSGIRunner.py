@@ -11,7 +11,6 @@ class WSGIRunner(RequestHandler):
     }
 
     def get(self, path):
-        path = '/' + path
         self.set_environment('GET', path)
         if path in WSGIRunner.url_map:
             self.run(WSGIRunner.url_map[path])
