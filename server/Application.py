@@ -7,4 +7,6 @@ class Application:
         status = "200 OK"
         headers = [("Content-type", "text/plain")]
         self.start(status, headers)
-        yield b"Welcome to WSGI!\n"
+        for chunk in [b"Welcome" b" " b"to" b" " b"WSGI!\n"]:
+            yield chunk
+

@@ -7,9 +7,6 @@ class Environment:
         status = "200 OK"
         headers = [("Content-type", "text/plain")]
         self.start(status, headers)
-        bodylist = [
-            '{key}: {value}'.format(key=key, value=value) for key, value in sorted(self.environ.items())
-        ]
-        body = '\n'.join(bodylist)
-        body += '\n'
-        yield body.encode()
+        for key, value in sorted(self.environ.items()):
+            yield f"{key}: {value}\n".encode()
+
