@@ -11,6 +11,7 @@ class WSGIRunner(RequestHandler):
     }
 
     def get(self, path):
+        print('Path ' + path)
         self.set_environment('GET', path)
         if path in WSGIRunner.url_map:
             self.run(WSGIRunner.url_map[path])
@@ -30,8 +31,15 @@ class WSGIRunner(RequestHandler):
             'HTTP_HOST': self.request.headers['Host'],
             'HTTP_HTTP_USER_AGENT': self.request.headers['User-Agent'],
             'REQUEST_METHOD': method,
-            'PATH_INFO': '/' + path
+            "PATH_INFO": path
         }
+        query = ''
+        for k, v in self.request.arguments.items():
+            if len(query) > 0:
+                query += '&'
+            query += k + '=' + v[0].decode()
+        self.environ['QUERY_STRING'] = query
+
 
     @staticmethod
     def start_response(status, response_headers):
